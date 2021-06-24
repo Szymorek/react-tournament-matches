@@ -3,14 +3,20 @@ export default function validateInfo(values) {
 
     if(!values.username.trim()) {
         errors.username = "Username required"
+    } else if (values.username.length < 3) {
+        errors.username = 'Username needs to be at least 3 characters long'
     }
 
     if(!values.firstName.trim()) {
         errors.firstName = "Name required"
+    } else if (values.username.length < 3) {
+        errors.password = 'First Name needs to be at least 3 characters long'
     }
 
     if(!values.surname.trim()) {
         errors.surname = "Surname required"
+    } else if (values.username.length < 3) {
+        errors.password = 'Surname needs to be at least 3 characters long'
     }
 
 

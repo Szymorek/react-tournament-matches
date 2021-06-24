@@ -20,9 +20,9 @@ const SidebarData = [
         link: '/tournaments/create',
     },
     {
-        title: 'Account',
+        title: 'Log out',
         icon: <AccountCircleIcon />,
-        link: '/account',
+        link: '/logout',
     },
 ]
 

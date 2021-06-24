@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useState, useEffect } from 'react'
-import CreateTournament from './CreateTournament'
-import TournamentListItem from "./TournamentListItem";
+import CreateTournament from '../tournament/CreateTournament'
+import TournamentManagerListItem from "./TournamentManagerListItem";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
   column: {
     flexBasis: '33.33%',
+    justifyItems: 'center'
   },
   columnUsers: {
     flexBasis: '66.66%',
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TournamentsList = () => {
+const TournamentManagerList = () => {
   const classes = useStyles();
   const [observer, setObserver] = useState(false)
   const [tournamentsData, setTournamentsData] = useState([
@@ -47,7 +48,7 @@ const TournamentsList = () => {
   const x = 5
   useEffect(() => {
     const authToken = localStorage.getItem("token")
-    fetch("http://127.0.0.1:8080/api/v1/tournaments", {
+    fetch("http://127.0.0.1:8080/api/v1/tournaments/manager", {
       mode: 'cors',
       method: 'GET',
       headers: {
@@ -60,8 +61,7 @@ const TournamentsList = () => {
         if (response.ok) {
           setObserver(false)
           return response.json()
-        } else if (response.status === 403){
-          localStorage.removeItem("token")
+        } else {
           window.location.href="/login";
         }
       })
@@ -76,11 +76,11 @@ const TournamentsList = () => {
   return (
     <div className={classes.root}>
       {tournamentsData.map((value, index) => {
-        return <TournamentListItem key={index} tournament={value} setObserver={setObserver} />
+        return <TournamentManagerListItem key={index} tournament={value} setObserver={setObserver} />
       })}
       <CreateTournament setObserver={setObserver}/>
     </div>
   );
 }
 
-export default TournamentsList
+export default TournamentManagerList

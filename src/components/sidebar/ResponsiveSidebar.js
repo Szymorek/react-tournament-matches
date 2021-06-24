@@ -15,8 +15,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import Button from '@material-ui/core/Button';
 import SidebarData from './SidebarData'
 
 const drawerWidth = 240;
@@ -30,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    background: "tomato",
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -111,8 +111,9 @@ export default function PersistentDrawerLeft() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-              Persistent drawer
+              Tournament manager
             </Typography>
+            <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -146,14 +147,6 @@ export default function PersistentDrawerLeft() {
             })}
           </List>
           <Divider />
-          {/* <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List> */}
         </Drawer>
         <main
           className={clsx(classes.content, {

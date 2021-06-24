@@ -19,7 +19,9 @@ export default function handleSubmit(values) {
         .then(response => {
             console.log(response)
             if (response.ok) {
-                return <Redirect to="/login" />
+
+            } else {
+
             }
         })
         .then(data => {
