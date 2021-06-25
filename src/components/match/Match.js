@@ -7,6 +7,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
+import * as Constants from '../../utils/Constants.js'
 
 const useStyles = makeStyles({
     root: {
@@ -30,7 +31,7 @@ const Match = () => {
 
     useEffect(() => {
         const authToken = localStorage.getItem("token")
-        fetch("http://127.0.0.1:8080/api/v1/matches", {
+        fetch(Constants.API_URL + "matches", {
           mode: 'cors',
           method: 'GET',
           headers: {

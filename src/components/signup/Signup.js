@@ -49,12 +49,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Signup = ({submitForm}) => {
-    const { handleChange, values, handleSubmit, errors, open, setOpen } = useForm(submitForm, validateInfo)
+    const { handleChange, values, handleSubmit, errors, alertInfo, setAlertInfo } = useForm(submitForm, validateInfo)
     const classes = useStyles();
 
 
     const handleClose = () => {
-        setOpen(false)
+        setAlertInfo({open: false})
     }
 
     return (
@@ -185,9 +185,9 @@ const Signup = ({submitForm}) => {
                         >
                             Sign In
                         </Button>
-                        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                            <Alert severity="success" onClose={handleClose}>
-                            Successfully registered your account!
+                        <Snackbar open={alertInfo?.open} autoHideDuration={6000} onClose={handleClose}>
+                            <Alert severity={alertInfo?.severity} onClose={handleClose}>
+                                {alertInfo?.message}
                             </Alert>
                         </Snackbar>
                         <Grid container>

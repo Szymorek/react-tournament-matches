@@ -12,6 +12,7 @@ import { PersonRounded } from '@material-ui/icons';
 import Badge from "@material-ui/core/Badge"
 import { makeStyles } from "@material-ui/core/styles";
 import MatchManager from './MatchManager'
+import * as Constants from '../../utils/Constants.js'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +40,7 @@ const TournamentManagerListItem = (props) => {
   const authToken = localStorage.getItem("token")
 
   const handleClick = () => {
-    fetch("http://127.0.0.1:8080/api/v1/tournaments/" + props.tournament.id, {
+    fetch(Constants.API_URL + "tournaments/" + props.tournament.id, {
       mode: 'cors',
       method: 'DELETE',
       headers: {

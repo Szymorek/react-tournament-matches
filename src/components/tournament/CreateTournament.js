@@ -6,6 +6,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Grid from '@material-ui/core/Grid'
 import AddIcon from '@material-ui/icons/Add'
+import * as Constants from '../../utils/Constants.js'
 import { TextField, Paper, Button, Fab, Radio, FormControlLabel } from '@material-ui/core';
 
 
@@ -55,7 +56,7 @@ const CreateTournament = (props) => {
     const [selectedValue, setSelectedValue] = useState(0)
 
     const handleSelect = e => {
-        setSelectedValue(e.target.value)
+        setSelectedValue(Number(e.target.value))
         setValues({
             ...values,
             places: e.target.value
@@ -64,15 +65,12 @@ const CreateTournament = (props) => {
 
     const verifyValues = () => {
         if (!values.title.trim()) {
-            console.log('title')
             return false
         }
         if (values.prize <= 0) {
-            console.log('prize')
             return false
         }
         if (values.places !== 4 && values.places !== 8) {
-            console.log('places')
             return false
         }
 
@@ -90,7 +88,7 @@ const CreateTournament = (props) => {
     const handleClick = () => {
         const authToken = localStorage.getItem("token")
         
-        verifyValues() && fetch("http://127.0.0.1:8080/api/v1/tournaments", {
+        verifyValues() && fetch(Constants.API_URL + "tournaments", {
             mode: 'cors',
             method: 'POST',
             headers: {
@@ -101,7 +99,6 @@ const CreateTournament = (props) => {
             body: JSON.stringify(values)
         })
             .then(response => {
-                console.log(response)
                 if (response.ok) {
                     props.setObserver(true)
                     setOpen(false)

@@ -11,42 +11,50 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import useLogin from './useLogin'
 import cup from './cup.svg'
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '../helpers/Alert';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiPaper-root": {
-        background: 'white',
+    root: {
+        height: '100vh',
     },
-    height: '100vh',
-  },
-  image: {
-    backgroundRepeat: 'no-repeat',
-    backgroundColor: 'linear-gradient(90deg,rgb(221, 43, 43) 0%,rgb(236, 114, 0) 100%)',
-    backgroundImage: `url(${cup})`,
-    backgroundPosition: 'center',
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+    image: {
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: 'linear-gradient(90deg,rgb(221, 43, 43) 0%,rgb(236, 114, 0) 100%)',
+        backgroundImage: `url(${cup})`,
+        backgroundPosition: 'center',
+    },
+    paper: {
+        margin: theme.spacing(8, 4),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
 }));
 
-const Login = ({submitForm}) => {
-    const { handleChange, values, handleSubmit, errors } = useLogin(submitForm)
+const Login = ({ submitForm }) => {
+    const { handleChange, values, handleSubmit, errors, alertInfo, setAlertInfo } = useLogin(submitForm)
     const classes = useStyles();
+
+
+    const handleClose = () => {
+        setAlertInfo(
+            {
+                open: false
+            }
+        )
+    }
 
     return (
         <Grid container component="main" className={classes.root} onSubmit={handleSubmit}>
@@ -74,7 +82,7 @@ const Login = ({submitForm}) => {
                             value={values.username}
                             onChange={handleChange}
                             error={errors.username ? true : false}
-                            helperText={errors.username? errors.username : ''}
+                            helperText={errors.username ? errors.username : ''}
                         />
                         <TextField
                             variant="outlined"
@@ -98,6 +106,11 @@ const Login = ({submitForm}) => {
                         >
                             Sign In
                         </Button>
+                        <Snackbar open={alertInfo?.open} autoHideDuration={6000} onClose={handleClose}>
+                            <Alert severity={alertInfo?.severity} onClose={handleClose}>
+                                {alertInfo?.message}
+                            </Alert>
+                        </Snackbar>
                         <Grid container>
                             <Grid item>
                                 <Link href="/signup" variant="body2">
@@ -105,7 +118,9 @@ const Login = ({submitForm}) => {
                                 </Link>
                             </Grid>
                         </Grid>
+
                     </form>
+
                 </div>
             </Grid>
         </Grid>

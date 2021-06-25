@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useState, useEffect } from 'react'
 import CreateTournament from '../tournament/CreateTournament'
 import TournamentManagerListItem from "./TournamentManagerListItem";
+import * as Constants from '../../utils/Constants.js'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,7 +48,7 @@ const TournamentManagerList = () => {
 
   useEffect(() => {
     const authToken = localStorage.getItem("token")
-    fetch("http://127.0.0.1:8080/api/v1/tournaments/manager", {
+    fetch(Constants.API_URL + "tournaments/manager", {
       mode: 'cors',
       method: 'GET',
       headers: {

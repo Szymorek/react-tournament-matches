@@ -1,6 +1,7 @@
+import * as Constants from '../../utils/Constants.js'
 
-export default function handleSubmit(values) {
-    fetch("http://127.0.0.1:8080/api/v1/users/register", {
+const submitForm = (values, setAlertInfo) => {
+    fetch(Constants.API_URL + "register", {
         mode: 'cors',
         method: 'POST',
         headers: {
@@ -16,11 +17,25 @@ export default function handleSubmit(values) {
         })
     })
         .then(response => {
-            console.log(response)
             if (response.ok) {
                 window.location.href="/login";
+                setAlertInfo ({
+                    open: true,
+                    message: "Successfully registered",
+                    severity: "success"
+                })
+            } else if (response.status === 403) {
+                setAlertInfo( {
+                    open: true,
+                    message: "Email or username already taken!",
+                    severity: "warning"
+                })
             } else {
-
+                setAlertInfo( {
+                    open: true,
+                    message: "Server returned error!",
+                    severity: "error"
+                })
             }
         })
         .then(data => {
@@ -28,3 +43,5 @@ export default function handleSubmit(values) {
             }
         })
 }
+
+export default submitForm

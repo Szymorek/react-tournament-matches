@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react'
-import * as Constants from '../../utils/consts.js'
-
+import * as Constants from '../../utils/Constants.js'
 
 
 const useLogin = ( callback ) => {
@@ -10,6 +9,7 @@ const useLogin = ( callback ) => {
     })
     const [errors, setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [alertInfo, setAlertInfo] = useState({})
 
     const handleLogin = (values) => {
         if (values.username && values.password)
@@ -27,8 +27,25 @@ const useLogin = ( callback ) => {
         })
             .then(response => {
                 if (response.ok) {
+                    setAlertInfo({
+                        open: true,
+                        message: "Successfully logged in",
+                        severity: "success"
+                    }
+                    )
                     return response.json()
+                } else if (response.status === 401) {
+                    setAlertInfo({
+                        open: true,
+                        message: "Incorrect credentials",
+                        severity: "warning"
+                    })
                 } else {
+                    setAlertInfo({
+                        open: true,
+                        message: "Server returned error!",
+                        severity: "error"
+                    })
                 }
             })
             .then(data => {
@@ -82,7 +99,7 @@ const useLogin = ( callback ) => {
         }
     })
 
-    return { handleChange, values , handleSubmit, errors }
+    return { handleChange, values , handleSubmit, errors, alertInfo, setAlertInfo }
 }
 
 export default useLogin

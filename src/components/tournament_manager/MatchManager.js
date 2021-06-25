@@ -1,18 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Radio, Button, FormControlLabel, Grid } from '@material-ui/core';
+import * as Constants from '../../utils/Constants.js'
 
 const MatchManager = (props) => {
     const [open, setOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(0)
 
     const handleChange = e => {
-        setSelectedValue(e.target.value)
+        setSelectedValue(Number(e.target.value))
     }
 
     const handleClick = () => {
         const authToken = localStorage.getItem("token")
-        fetch(`http://127.0.0.1:8080/api/v1/matches/${props.match.id}/${selectedValue}`, {
+        fetch(`${Constants.API_URL}/matches/${props.match.id}/${selectedValue}`, {
             mode: 'cors',
             method: 'PUT',
             headers: {

@@ -12,6 +12,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import TournamentBracket from '../helpers/TournamentBracket'
 import { makeStyles } from "@material-ui/core/styles";
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
+import * as Constants from '../../utils/Constants.js'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +49,7 @@ const TournamentListItem = (props) => {
 
   const handleClick = e => {
     e.stopPropagation()
-    fetch("http://127.0.0.1:8080/api/v1/tournaments/" + props.tournament.id, {
+    fetch(Constants.API_URL + "tournaments/" + props.tournament.id, {
       mode: 'cors',
       method: 'PUT',
       headers: {
