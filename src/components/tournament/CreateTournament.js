@@ -6,7 +6,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Grid from '@material-ui/core/Grid'
 import AddIcon from '@material-ui/icons/Add'
-import { TextField, MenuItem, Select, InputLabel, Button, Fab } from '@material-ui/core';
+import { TextField, Paper, Button, Fab } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -111,7 +111,9 @@ const CreateTournament = (props) => {
                 }}
             >
                 <Fade in={open}>
-                    <div className={classes.paper}>
+                    <Paper>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12}>
                         <TextField
                             variant="filled"
                             margin="normal"
@@ -125,6 +127,8 @@ const CreateTournament = (props) => {
                             value={values.title}
                             onChange={handleChange}
                         />
+                        </Grid>
+                        <Grid item xs={6}>
                         <TextField
                             variant="filled"
                             margin="normal"
@@ -139,6 +143,8 @@ const CreateTournament = (props) => {
                             value={values.prize}
                             onChange={handleChange}
                         />
+                        </Grid>
+                        <Grid item xs={6}>
                         <TextField
                             variant="filled"
                             margin="normal"
@@ -153,7 +159,8 @@ const CreateTournament = (props) => {
                             value={values.places}
                             onChange={handleChange}
                         />
-                        <Grid container justify="flex-end">
+                        </Grid>
+                        <Grid container item xs={12} justify="center">
                             <Button
                                 variant="contained"
                                 color="primary"
@@ -162,7 +169,8 @@ const CreateTournament = (props) => {
                             >Create
                             </Button>
                         </Grid>
-                    </div>
+                        </Grid>
+                    </Paper>
                 </Fade>
             </Modal>
         </div>
