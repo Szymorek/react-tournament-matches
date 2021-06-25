@@ -1,4 +1,3 @@
-import { Redirect } from "react-router"
 
 export default function handleSubmit(values) {
     fetch("http://127.0.0.1:8080/api/v1/users/register", {
@@ -19,7 +18,7 @@ export default function handleSubmit(values) {
         .then(response => {
             console.log(response)
             if (response.ok) {
-
+                window.location.href="/login";
             } else {
 
             }

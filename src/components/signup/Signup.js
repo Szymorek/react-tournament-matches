@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Signup = ({submitForm}) => {
-    const { handleChange, values, handleSubmit, errors, fetchError, open, setOpen } = useForm(submitForm, validateInfo)
+    const { handleChange, values, handleSubmit, errors, open, setOpen } = useForm(submitForm, validateInfo)
     const classes = useStyles();
 
 
@@ -86,8 +86,8 @@ const Signup = ({submitForm}) => {
                                     autoFocus
                                     value={values.username}
                                     onChange={handleChange}
-                                    // error={errors.username ? true : false}
-                                    // helperText={errors.username}
+                                    error={errors.username ? true : false}
+                                    helperText={errors.username}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -103,8 +103,8 @@ const Signup = ({submitForm}) => {
                                     autoComplete="firstName"
                                     value={values.firstName}
                                     onChange={handleChange}
-                                    // error={errors.firstName ? true : false}
-                                    // helperText={errors.firstName}
+                                    error={errors.firstName ? true : false}
+                                    helperText={errors.firstName}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -120,6 +120,8 @@ const Signup = ({submitForm}) => {
                                 autoComplete="surname"
                                 value={values.surname}
                                 onChange={handleChange}
+                                error={errors.surname ? true : false}
+                                helperText={errors.surname}
                             />
                             </Grid>
                             <Grid item xs={12}>
@@ -135,6 +137,8 @@ const Signup = ({submitForm}) => {
                                     autoComplete="email"
                                     value={values.email}
                                     onChange={handleChange}
+                                    error={errors.email ? true : false}
+                                    helperText={errors.email}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -150,6 +154,8 @@ const Signup = ({submitForm}) => {
                                     autoComplete="current-password"
                                     value={values.password}
                                     onChange={handleChange}
+                                    error={errors.password ? true : false}
+                                    helperText={errors.password}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -165,6 +171,8 @@ const Signup = ({submitForm}) => {
                                     autoComplete="current-password"
                                     value={values.password2}
                                     onChange={handleChange}
+                                    error={errors.password2 ? true : false}
+                                    helperText={errors.password2}
                                 />
                             </Grid>
                         </Grid>
@@ -179,7 +187,7 @@ const Signup = ({submitForm}) => {
                         </Button>
                         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                             <Alert severity="success" onClose={handleClose}>
-                            This is a success message!
+                            Successfully registered your account!
                             </Alert>
                         </Snackbar>
                         <Grid container>

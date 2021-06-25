@@ -1,4 +1,3 @@
-import { EmojiObjects } from '@material-ui/icons'
 import {useState, useEffect} from 'react'
 import submitForm from './submitForm'
 

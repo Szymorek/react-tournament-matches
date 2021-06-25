@@ -12,7 +12,6 @@ const useLogin = ( callback ) => {
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const handleLogin = (values) => {
-        console.log(`body - ${values.username};${values.password}`)
         if (values.username && values.password)
         fetch(Constants.API_URL + "users/login", {
             mode: 'cors',
@@ -71,7 +70,6 @@ const useLogin = ( callback ) => {
 
         setErrors(validateInfo(values))
 
-        console.log("Checking errors")
         if(errors != null && handleLogin(values)) {
             setIsSubmitting(true)
             

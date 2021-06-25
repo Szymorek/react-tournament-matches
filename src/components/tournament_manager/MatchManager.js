@@ -1,45 +1,17 @@
 import React from 'react';
 import { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Radio, Button } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Radio, Button, FormControlLabel, Grid } from '@material-ui/core';
 
-
-const useStyles = makeStyles((theme) => ({
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    paper: {
-        "& .MuiFilledInput-root": {
-            background: "rgb(232, 241, 250)"
-        },
-        backgroundColor: theme.palette.background.paper,
-        width: '50%',
-        height: '50%',
-        maxHeight: '500px',
-        minWidth: '250px',
-        maxWidth: '500px',
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-    },
-}));
-
-
-const MatchManager = ( props ) => {
-    const classes = useStyles();
+const MatchManager = (props) => {
     const [open, setOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(0)
 
     const handleChange = e => {
-        console.log(`selected value - ${e.target.value}`)
         setSelectedValue(e.target.value)
     }
 
     const handleClick = () => {
         const authToken = localStorage.getItem("token")
-        console.log("Sending put")
         fetch(`http://127.0.0.1:8080/api/v1/matches/${props.match.id}/${selectedValue}`, {
             mode: 'cors',
             method: 'PUT',
@@ -50,7 +22,6 @@ const MatchManager = ( props ) => {
             }
         })
             .then(response => {
-                console.log(response)
                 if (response.ok) {
                     props.setObserver(true)
                     setOpen(false)
@@ -58,7 +29,6 @@ const MatchManager = ( props ) => {
             })
             .then(data => {
                 if (data) {
-                    console.log(data)
                 }
             })
     }
@@ -72,40 +42,44 @@ const MatchManager = ( props ) => {
 
     return (
         <div>
-        <Button variant="outlined" color="primary" onClick={handleOpen}>
-          Decide
-        </Button>
-        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Decide Winner of {props.match?.firstParticipant?.username} vs {props.match?.secondParticipant?.username}</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Choose user who won this match.
-            </DialogContentText>
-            <Radio
-                                    checked={selectedValue == 1}
-                                    onChange={handleChange}
-                                    value={1}
-                                    name="radio-button-demo"
-                                    inputProps={{ 'aria-label': 'A' }}
-                                />
-                                                                <Radio
-                                    checked={selectedValue == 2}
-                                    onChange={handleChange}
-                                    value={2}
-                                    name="radio-button-demo"
-                                    inputProps={{ 'aria-label': 'A' }}
-                                />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Cancel
+            <Button variant="contained" color="primary" size="small" onClick={handleOpen}>
+                Decide
             </Button>
-            <Button onClick={handleClick} color="primary">
-              Confirm
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Decide Winner of {props.match?.firstParticipant.username} vs {props.match?.secondParticipant.username}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Choose user who won this match.
+                    </DialogContentText>
+                    <Grid container justify="space-between">
+                    <FormControlLabel value={1} control={<Radio
+                        checked={selectedValue === 1}
+                        onChange={handleChange}
+                        value={1}
+                        name="radio-button-demo"
+                        inputProps={{ 'aria-label': 'A' }}
+                    />} label={props.match?.firstParticipant.username}/>
+                    <FormControlLabel value={2} control={<Radio
+                        checked={selectedValue === 2}
+                        onChange={handleChange}
+                        value={2}
+                        name="radio-button-demo"
+                        inputProps={{ 'aria-label': 'A' }}
+                    />} label={props.match?.secondParticipant.username}/>
+                    </Grid>
+                </DialogContent>
+                <DialogActions>
+                    <Grid container justify="space-between">
+                    <Button onClick={handleClose} variant="contained" color="secondary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleClick} variant="contained" color="primary">
+                        Confirm
+                    </Button>
+                    </Grid>
+                </DialogActions>
+            </Dialog>
+        </div>
     )
 }
 

@@ -44,7 +44,6 @@ const TournamentsList = () => {
     }
   ])
 
-  const x = 5
   useEffect(() => {
     const authToken = localStorage.getItem("token")
     fetch("http://127.0.0.1:8080/api/v1/tournaments", {

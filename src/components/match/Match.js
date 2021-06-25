@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     flex: 1,
   },
   cardMedia: {
-    width: 160,
+    width: 100,
   },
 });
 
@@ -49,33 +49,31 @@ const Match = () => {
           })
           .then(data => {
             if (data) {
-                console.log(data)
-              setMatchData([data])
+              setMatchData(data)
             }
           })
       }, [])
 
-      console.log(matchData)
     return (
         <Grid container>
         {matchData?.map((value, index) => {
-                return <Grid key={index} container justify="center">
+                return <Grid key={index} container justify="center" spacing={3}>
                 <Grid item xs={6}>
                 <CardActionArea component="a" href="#">
                   <Card className={value.tournament?.title}>
                     <div className={classes.cardDetails}>
                       <CardContent>
-                        <Typography component="h2" variant="h5">
-        
+                        <Typography>
+                          {value?.firstParticipant?.username} vs {value?.secondParticipant?.username}
                         </Typography>
                         <Typography variant="subtitle1" color="textSecondary">
-        
+                          {value?.tournamentTitle}
                         </Typography>
                         <Typography variant="subtitle1" paragraph>
-        
+
                         </Typography>
                         <Typography variant="subtitle1" color={"primary"}>
-                          Continue reading...
+                         Winner: {value?.winnerParticipant?.username}
                         </Typography>
                       </CardContent>
                     </div>

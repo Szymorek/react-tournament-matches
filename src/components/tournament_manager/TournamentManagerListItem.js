@@ -50,7 +50,6 @@ const TournamentManagerListItem = (props) => {
     })
       .then(response => {
         if (response.ok) {
-          console.log(props)
           props.setObserver(true)
           return response.json()
         } else {
@@ -95,14 +94,20 @@ const TournamentManagerListItem = (props) => {
           <Grid container item xs={9} spacing={1}>
             {props.tournament.matches.map((value, index) => {
               if (value.firstParticipant && value.secondParticipant) {
-                return <Grid item xs={4}>
+                return <Grid item xs={3}>
                   <Paper key={index} variant='outlined'>
                     <Chip key={index} label={value?.firstParticipant?.username} className={classes.chip} />
                     vs
                     <Chip key={index} label={value?.secondParticipant?.username} className={classes.chip} />
-                    {value.winner !== 1 && value.winner !== 2 ? <MatchManager key={index} match={value} setObserver={props.setObserver}/> : <></>}
+                    {value.winner !== 1 && value.winner !== 2 ?
+                    <Grid container justify="center">
+                      <MatchManager key={index} match={value} setObserver={props.setObserver}/>
+                    </Grid> :
+                    <></>}
                   </Paper>
                 </Grid>
+              } else {
+                return <></>
               }
             })}
           </Grid>

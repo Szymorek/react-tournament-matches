@@ -79,9 +79,6 @@ const roundsOf4 = [
 
 
 const TournamentBracket = ( {matches, participants} ) => {
-  console.log(matches)
-  console.log(matches?.[2]?.firstParticipant?.username)
-  console.log(matches?.[2]?.secondParticipant?.username)
   if (participants === 4) {
     roundsOf4[0].seeds[0].teams[0].name = matches?.[0]?.firstParticipant?.username
     roundsOf4[0].seeds[0].teams[1].name = matches?.[0]?.secondParticipant?.username

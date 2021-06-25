@@ -6,10 +6,13 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Grid from '@material-ui/core/Grid'
 import AddIcon from '@material-ui/icons/Add'
-import { TextField, Paper, Button, Fab } from '@material-ui/core';
+import { TextField, Paper, Button, Fab, Radio, FormControlLabel } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+
+    },
     modal: {
         display: 'flex',
         alignItems: 'center',
@@ -22,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
         width: '50%',
         height: '50%',
-        maxHeight: '200px',
+        maxHeight: '250px',
         minWidth: '250px',
         maxWidth: '500px',
         border: '2px solid #000',
@@ -44,12 +47,37 @@ const CreateTournament = (props) => {
     const [open, setOpen] = useState(false);
     const [values, setValues] = useState({
         title: '',
-        places: 0,
         prize: 0,
         user: {},
         participants: [],
         judges: []
     })
+    const [selectedValue, setSelectedValue] = useState(0)
+
+    const handleSelect = e => {
+        setSelectedValue(e.target.value)
+        setValues({
+            ...values,
+            places: e.target.value
+        })
+    }
+
+    const verifyValues = () => {
+        if (!values.title.trim()) {
+            console.log('title')
+            return false
+        }
+        if (values.prize <= 0) {
+            console.log('prize')
+            return false
+        }
+        if (values.places !== 4 && values.places !== 8) {
+            console.log('places')
+            return false
+        }
+
+        return true
+    }
 
     const handleChange = e => {
         const { name, value } = e.target
@@ -57,12 +85,12 @@ const CreateTournament = (props) => {
             ...values,
             [name]: value
         })
-        console.log(values)
     }
 
     const handleClick = () => {
         const authToken = localStorage.getItem("token")
-        fetch("http://127.0.0.1:8080/api/v1/tournaments", {
+        
+        verifyValues() && fetch("http://127.0.0.1:8080/api/v1/tournaments", {
             mode: 'cors',
             method: 'POST',
             headers: {
@@ -111,14 +139,14 @@ const CreateTournament = (props) => {
                 }}
             >
                 <Fade in={open}>
-                    <Paper>
-                        <Grid container spacing={3} justify="center">
+                    <Paper className={classes.paper}>
+                        <Grid container justify="center" alignItems="center" spacing={2}>
                             <Grid item xs={12}>
                                 <TextField
-                                    variant="filled"
+                                    variant="outlined"
+                                    fullWidth
                                     margin="normal"
                                     required
-                                    fullWidth
                                     id="title"
                                     label="Tournament Title"
                                     name="title"
@@ -144,21 +172,23 @@ const CreateTournament = (props) => {
                                     onChange={handleChange}
                                 />
                             </Grid>
-                            <Grid item xs={6}>
-                                <TextField
-                                    variant="filled"
-                                    margin="normal"
-                                    type="number"
-                                    required
-                                    size="small"
-                                    id="places"
-                                    label="Number of players"
-                                    name="places"
-                                    autoComplete="places"
-                                    autoFocus
-                                    value={values.places}
-                                    onChange={handleChange}
-                                />
+                            <Grid item xs={3}>
+                            <FormControlLabel value={4} control={<Radio
+                                    checked={selectedValue === 4}
+                                    onChange={handleSelect}
+                                    value={4}
+                                    name="radio-button-demo"
+                                    inputProps={{ 'aria-label': 'A' }}
+                                />} label="4"/>
+                            </Grid>
+                            <Grid item xs={3}>
+                            <FormControlLabel value={8} control={<Radio
+                                    checked={selectedValue === 8}
+                                    onChange={handleSelect}
+                                    value={8}
+                                    name="radio-button-demo"
+                                    inputProps={{ 'aria-label': 'A' }}
+                                />} label="8"/>
                             </Grid>
                             <Grid container item xs={12} justify="center">
                                 <Button

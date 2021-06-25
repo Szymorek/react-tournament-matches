@@ -5,9 +5,9 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import Chip from "@material-ui/core/Chip"
 import Button from '@material-ui/core/Button';
-import { Divider, Grid, Badge } from '@material-ui/core';
+import { Divider, Grid, Badge} from '@material-ui/core';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
-import { PersonRounded, SignalCellularNullRounded } from '@material-ui/icons';
+import { PersonRounded } from '@material-ui/icons';
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import TournamentBracket from '../helpers/TournamentBracket'
 import { makeStyles } from "@material-ui/core/styles";
@@ -46,7 +46,8 @@ const TournamentListItem = (props) => {
     return props.tournament?.matches?.[props.tournament.places-2]?.winnerParticipant?.username
   }
 
-  const handleClick = () => {
+  const handleClick = e => {
+    e.stopPropagation()
     fetch("http://127.0.0.1:8080/api/v1/tournaments/" + props.tournament.id, {
       mode: 'cors',
       method: 'PUT',
@@ -66,12 +67,9 @@ const TournamentListItem = (props) => {
       })
       .then(data => {
         if (data) {
-          console.log(data)
         }
       })
   }
-  console.log("winner")
-  console.log(getWinner())
   return (
     <Accordion className={classes.row}>
       <AccordionSummary
@@ -81,13 +79,13 @@ const TournamentListItem = (props) => {
       >
         <Grid container justify="flex-start" alignItems="center">
             <Button
-              className="button"
               variant="contained"
               color="primary"
               size="small"
               className={classes.button}
               startIcon={<PlayCircleFilledIcon />}
               onClick={handleClick}
+              onFocus={(event) => event.stopPropagation()}
               disabled={props.tournament?.participants?.length === props.tournament?.places}
             >
               Join
@@ -98,7 +96,8 @@ const TournamentListItem = (props) => {
               `0/${props.tournament.places}`} >
             <PersonRounded />
           </Badge>
-          {getWinner()? [< EmojiEventsIcon />, <Chip label={getWinner()}/>] : null}
+          &nbsp;&nbsp;&nbsp;
+          {getWinner()? [< EmojiEventsIcon />, <Chip label={getWinner()} color="secondary"/>] : null}
           
 
         </Grid>
@@ -111,9 +110,10 @@ const TournamentListItem = (props) => {
           <TournamentBracket matches={props.tournament.matches.sort((a, b) => (a.number > b.number) ? 1 : -1)}
             participants={props.tournament.places} />
         </Grid>
-        <Grid items xs={3}>
+        <Grid item xs={3}>
           {props.tournament.participants.map((value, index) => {
-            return <Chip key={index} label={value.username} className={classes.chip} />
+            return <Chip key={index} label={value.username} className={classes.chip}
+              color={getWinner() === value.username ? "secondary" : "default"}/>
           })}
         </Grid>
         </Grid>
