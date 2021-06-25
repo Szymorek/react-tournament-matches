@@ -9,7 +9,9 @@ const useLogin = ( callback ) => {
     })
     const [errors, setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [alertInfo, setAlertInfo] = useState({})
+    const [alertInfo, setAlertInfo] = useState({
+        open: false,
+    })
 
     const handleLogin = (values) => {
         if (values.username && values.password)

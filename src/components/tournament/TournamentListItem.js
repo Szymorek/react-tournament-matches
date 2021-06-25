@@ -113,7 +113,7 @@ const TournamentListItem = (props) => {
         </Grid>
         <Grid item xs={3}>
           {props.tournament.participants.map((value, index) => {
-            return <Chip key={index} label={value.username} className={classes.chip}
+            return <Chip key={props.tournament.id*100 + index} label={value.username} className={classes.chip}
               color={getWinner() === value.username ? "secondary" : "default"}/>
           })}
         </Grid>

@@ -95,14 +95,14 @@ const TournamentManagerListItem = (props) => {
           <Grid container item xs={9} spacing={1}>
             {props.tournament.matches.map((value, index) => {
               if (value.firstParticipant && value.secondParticipant) {
-                return <Grid item xs={3}>
-                  <Paper key={index} variant='outlined'>
-                    <Chip key={index} label={value?.firstParticipant?.username} className={classes.chip} />
+                return <Grid key={props.tournament.id*100 + 50 + index} item xs={3}>
+                  <Paper key={props.tournament.id*100 + index} variant='outlined'>
+                    <Chip key={props.tournament.id*100 + 10 + index} label={value?.firstParticipant?.username} className={classes.chip} />
                     vs
-                    <Chip key={index} label={value?.secondParticipant?.username} className={classes.chip} />
+                    <Chip key={props.tournament.id*100 + 20 + index} label={value?.secondParticipant?.username} className={classes.chip} />
                     {value.winner !== 1 && value.winner !== 2 ?
-                    <Grid container justify="center">
-                      <MatchManager key={index} match={value} setObserver={props.setObserver}/>
+                    <Grid key={props.tournament.id*100 + 30 + index} container justify="center">
+                      <MatchManager key={props.tournament.id*100 + 40 + index} match={value} setObserver={props.setObserver}/>
                     </Grid> :
                     <></>}
                   </Paper>
@@ -112,10 +112,10 @@ const TournamentManagerListItem = (props) => {
               }
             })}
           </Grid>
-          <Grid item xs={3} justify="center">
+          <Grid item xs={3}>
             <Typography align="center">Participants</Typography>
             {props.tournament.participants.map((value, index) => {
-              return <Chip key={index} label={value.username} className={classes.chip} />
+              return <Chip key={props.tournament.id*100 + 40 + index} label={value.username} className={classes.chip} />
             })}
           </Grid>
         </Grid>

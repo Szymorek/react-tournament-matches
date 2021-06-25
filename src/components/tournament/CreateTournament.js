@@ -70,7 +70,7 @@ const CreateTournament = (props) => {
         if (values.prize <= 0) {
             return false
         }
-        if (values.places !== 4 && values.places !== 8) {
+        if (Number(values.places) !== 4 && Number(values.places) !== 8) {
             return false
         }
 
