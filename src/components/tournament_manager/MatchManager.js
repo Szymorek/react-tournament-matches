@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const MatchManager = ( { match } ) => {
+const MatchManager = ( props ) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(0)
@@ -40,7 +40,7 @@ const MatchManager = ( { match } ) => {
     const handleClick = () => {
         const authToken = localStorage.getItem("token")
         console.log("Sending put")
-        fetch(`http://127.0.0.1:8080/api/v1/matches/${match.id}/${selectedValue}`, {
+        fetch(`http://127.0.0.1:8080/api/v1/matches/${props.match.id}/${selectedValue}`, {
             mode: 'cors',
             method: 'PUT',
             headers: {
@@ -52,6 +52,7 @@ const MatchManager = ( { match } ) => {
             .then(response => {
                 console.log(response)
                 if (response.ok) {
+                    props.setObserver(true)
                     setOpen(false)
                 }
             })
@@ -75,7 +76,7 @@ const MatchManager = ( { match } ) => {
           Decide
         </Button>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Decide Winner of {match?.firstParticipant?.username} vs {match?.secondParticipant?.username}</DialogTitle>
+          <DialogTitle id="form-dialog-title">Decide Winner of {props.match?.firstParticipant?.username} vs {props.match?.secondParticipant?.username}</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Choose user who won this match.

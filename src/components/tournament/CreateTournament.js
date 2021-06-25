@@ -63,26 +63,26 @@ const CreateTournament = (props) => {
     const handleClick = () => {
         const authToken = localStorage.getItem("token")
         fetch("http://127.0.0.1:8080/api/v1/tournaments", {
-          mode: 'cors',
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json, text/plain',
-            'Content-Type': 'application/json',
-            "Authorization": 'Bearer ' + authToken
-          },
-          body: JSON.stringify(values)
+            mode: 'cors',
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-Type': 'application/json',
+                "Authorization": 'Bearer ' + authToken
+            },
+            body: JSON.stringify(values)
         })
-          .then(response => {
-            console.log(response)
-            if (response.ok) {
-                props.setObserver(true)
-                setOpen(false)
-            }
-          })
-          .then(data => {
-            if (data) {
-            }
-          })
+            .then(response => {
+                console.log(response)
+                if (response.ok) {
+                    props.setObserver(true)
+                    setOpen(false)
+                }
+            })
+            .then(data => {
+                if (data) {
+                }
+            })
     }
     const handleOpen = () => {
         setOpen(true);
@@ -90,7 +90,7 @@ const CreateTournament = (props) => {
 
     const handleClose = () => {
         setOpen(false);
-        setValues({title: '', places: 0, user: {}, prize: 0, participants: [], judges: []})
+        setValues({ title: '', places: 0, user: {}, prize: 0, participants: [], judges: [] })
     };
 
     return (
@@ -112,63 +112,63 @@ const CreateTournament = (props) => {
             >
                 <Fade in={open}>
                     <Paper>
-                        <Grid container spacing={3}>
+                        <Grid container spacing={3} justify="center">
                             <Grid item xs={12}>
-                        <TextField
-                            variant="filled"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="title"
-                            label="Tournament Title"
-                            name="title"
-                            autoComplete="title"
-                            autoFocus
-                            value={values.title}
-                            onChange={handleChange}
-                        />
-                        </Grid>
-                        <Grid item xs={6}>
-                        <TextField
-                            variant="filled"
-                            margin="normal"
-                            type="number"
-                            required
-                            size="small"
-                            id="prize"
-                            label="Prize"
-                            name="prize"
-                            autoComplete="prize"
-                            autoFocus
-                            value={values.prize}
-                            onChange={handleChange}
-                        />
-                        </Grid>
-                        <Grid item xs={6}>
-                        <TextField
-                            variant="filled"
-                            margin="normal"
-                            type="number"
-                            required
-                            size="small"
-                            id="places"
-                            label="Number of players"
-                            name="places"
-                            autoComplete="places"
-                            autoFocus
-                            value={values.places}
-                            onChange={handleChange}
-                        />
-                        </Grid>
-                        <Grid container item xs={12} justify="center">
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                className={classes.button}
-                                onClick={handleClick}
-                            >Create
-                            </Button>
-                        </Grid>
+                                <TextField
+                                    variant="filled"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="title"
+                                    label="Tournament Title"
+                                    name="title"
+                                    autoComplete="title"
+                                    autoFocus
+                                    value={values.title}
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    variant="filled"
+                                    margin="normal"
+                                    type="number"
+                                    required
+                                    size="small"
+                                    id="prize"
+                                    label="Prize"
+                                    name="prize"
+                                    autoComplete="prize"
+                                    autoFocus
+                                    value={values.prize}
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    variant="filled"
+                                    margin="normal"
+                                    type="number"
+                                    required
+                                    size="small"
+                                    id="places"
+                                    label="Number of players"
+                                    name="places"
+                                    autoComplete="places"
+                                    autoFocus
+                                    value={values.places}
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid container item xs={12} justify="center">
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.button}
+                                    onClick={handleClick}
+                                >Create
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Paper>
                 </Fade>

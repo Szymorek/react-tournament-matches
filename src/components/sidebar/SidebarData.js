@@ -1,23 +1,23 @@
-import HomeIcon from '@material-ui/icons/Home'
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import GroupIcon from '@material-ui/icons/Group';
+import VideogameAssetIcon from '@material-ui/icons/VideogameAsset';
+import ReorderIcon from '@material-ui/icons/Reorder';
 
 const SidebarData = [
     {
-        title: 'All Tournaments',
-        icon: <HomeIcon />,
+        title: 'Browser',
+        icon: <AccountTreeIcon />,
         link: '/tournaments/all',
     },
     {
-        title: 'Your Tournaments',
-        icon: <AccountTreeIcon />,
+        title: 'Manager',
+        icon: <ReorderIcon />,
         link: '/tournaments/manage',
     },
     {
-        title: 'Create Tournament',
-        icon: <GroupIcon />,
-        link: '/tournaments/create',
+        title: 'Matches',
+        icon: <VideogameAssetIcon />,
+        link: '/matches',
     },
     {
         title: 'Log out',

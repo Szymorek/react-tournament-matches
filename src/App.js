@@ -5,6 +5,7 @@ import TournamentManagerList from './components/tournament_manager/TournamentMan
 import ResponsiveSidebar from './components/sidebar/ResponsiveSidebar'
 import Signup from './components/signup/Signup'
 import TournamentBracket from './components/helpers/TournamentBracket'
+import Match from './components/match/Match'
 
 function App() {
   const existingToken = localStorage.getItem("token")
@@ -36,9 +37,12 @@ function App() {
             {existingToken ? <Redirect to="/tournaments/all"/> : <Redirect to="/login"/>}
           </Route>
 
+          <Route exact path='/matches'>
+          <ResponsiveSidebar />
+            <Match />
+          </Route>
 
-
-
+          
             <Route exact path='/tournaments/manage'>
               <ResponsiveSidebar />
               <TournamentManagerList />

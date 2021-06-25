@@ -100,7 +100,7 @@ const TournamentManagerListItem = (props) => {
                     <Chip key={index} label={value?.firstParticipant?.username} className={classes.chip} />
                     vs
                     <Chip key={index} label={value?.secondParticipant?.username} className={classes.chip} />
-                    {value.winner !== 1 && value.winner !== 2 ? <MatchManager key={index} match={value} /> : <></>}
+                    {value.winner !== 1 && value.winner !== 2 ? <MatchManager key={index} match={value} setObserver={props.setObserver}/> : <></>}
                   </Paper>
                 </Grid>
               }
