@@ -16,6 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SidebarData from './SidebarData'
+import jwt from 'jwt-decode'
 
 const drawerWidth = 240;
 
@@ -145,6 +146,9 @@ export default function PersistentDrawerLeft() {
             })}
         </List>
         <Divider />
+        <Typography variant="caption" align="center">
+                Logged in as: {jwt(localStorage.getItem("token"))?.sub.split(';')[1]}
+        </Typography>
       </Drawer>
       <main
         className={clsx(classes.content, {

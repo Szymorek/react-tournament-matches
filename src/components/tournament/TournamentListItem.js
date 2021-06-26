@@ -12,6 +12,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import TournamentBracket from '../helpers/TournamentBracket'
 import { makeStyles } from "@material-ui/core/styles";
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import * as Constants from '../../utils/Constants.js'
 
 const useStyles = makeStyles((theme) => ({
@@ -98,6 +99,11 @@ const TournamentListItem = (props) => {
             <PersonRounded />
           </Badge>
           &nbsp;&nbsp;&nbsp;
+          <Badge color="primary" margin="auto" max={999}
+            badgeContent={props.tournament.prize}>
+            <AttachMoneyIcon />
+          </Badge>
+          &nbsp;&nbsp;&nbsp;&nbsp;
           {getWinner()? [< EmojiEventsIcon />, <Chip label={getWinner()} color="secondary"/>] : null}
           
 
@@ -113,7 +119,7 @@ const TournamentListItem = (props) => {
         </Grid>
         <Grid item xs={3}>
           {props.tournament.participants.map((value, index) => {
-            return <Chip key={props.tournament.id*100 + index} label={value.username} className={classes.chip}
+            return <Chip key={index} label={value.username} className={classes.chip}
               color={getWinner() === value.username ? "secondary" : "default"}/>
           })}
         </Grid>

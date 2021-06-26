@@ -13,7 +13,7 @@ const MatchManager = (props) => {
 
     const handleClick = () => {
         const authToken = localStorage.getItem("token")
-        fetch(`${Constants.API_URL}/matches/${props.match.id}/${selectedValue}`, {
+        fetch(`${Constants.API_URL}matches/${props.match.id}/${selectedValue}`, {
             mode: 'cors',
             method: 'PUT',
             headers: {

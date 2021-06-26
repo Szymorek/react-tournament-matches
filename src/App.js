@@ -42,7 +42,6 @@ function App() {
             <Match />
           </Route>
 
-          
             <Route exact path='/tournaments/manage'>
               <ResponsiveSidebar />
               <TournamentManagerList />

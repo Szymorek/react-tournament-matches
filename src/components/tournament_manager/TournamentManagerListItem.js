@@ -12,6 +12,7 @@ import { PersonRounded } from '@material-ui/icons';
 import Badge from "@material-ui/core/Badge"
 import { makeStyles } from "@material-ui/core/styles";
 import MatchManager from './MatchManager'
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import * as Constants from '../../utils/Constants.js'
 
 const useStyles = makeStyles((theme) => ({
@@ -26,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
   },
   column: {
     flexBasis: '33.33%',
+  },
+  paper: {
+    maxHeight: "150px",
   },
   button: {
     margin: theme.spacing(2),
@@ -86,6 +90,11 @@ const TournamentManagerListItem = (props) => {
               `0/${props.tournament.places}`} >
             <PersonRounded />
           </Badge>
+          &nbsp;&nbsp;&nbsp;
+          <Badge color="primary" margin="auto" max={999}
+            badgeContent={props.tournament.prize}>
+            <AttachMoneyIcon />
+          </Badge>
 
         </Grid>
       </AccordionSummary>
@@ -95,10 +104,10 @@ const TournamentManagerListItem = (props) => {
           <Grid container item xs={9} spacing={1}>
             {props.tournament.matches.map((value, index) => {
               if (value.firstParticipant && value.secondParticipant) {
-                return <Grid key={props.tournament.id*100 + 50 + index} item xs={3}>
-                  <Paper key={props.tournament.id*100 + index} variant='outlined'>
+                return <Grid key={props.tournament.id*100 + 50 + index} container item xs={4} justify="center">
+                  <Paper key={props.tournament.id*100 + index} variant='outlined' className={classes.paper}>
                     <Chip key={props.tournament.id*100 + 10 + index} label={value?.firstParticipant?.username} className={classes.chip} />
-                    vs
+                    <Typography align="center">vs</Typography>
                     <Chip key={props.tournament.id*100 + 20 + index} label={value?.secondParticipant?.username} className={classes.chip} />
                     {value.winner !== 1 && value.winner !== 2 ?
                     <Grid key={props.tournament.id*100 + 30 + index} container justify="center">

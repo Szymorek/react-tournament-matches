@@ -5,8 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Hidden from '@material-ui/core/Hidden';
 import * as Constants from '../../utils/Constants.js'
 
 const useStyles = makeStyles({
@@ -19,9 +17,6 @@ const useStyles = makeStyles({
   },
   cardDetails: {
     flex: 1,
-  },
-  cardMedia: {
-    width: 100,
   },
 });
 
@@ -70,17 +65,11 @@ const Match = () => {
                         <Typography variant="subtitle1" color="textSecondary">
                           {value?.tournamentTitle}
                         </Typography>
-                        <Typography variant="subtitle1" paragraph>
-
-                        </Typography>
                         <Typography variant="subtitle1" color={"primary"}>
                          Winner: {value?.winnerParticipant?.username}
                         </Typography>
                       </CardContent>
                     </div>
-                    <Hidden xsDown>
-                      <CardMedia />
-                    </Hidden>
                   </Card>
                 </CardActionArea>
               </Grid>
